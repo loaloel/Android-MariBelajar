@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.aloel.maribelajar.service.ServiceBGM;
-import com.aloel.maribelajar.ui.SplassScreen;
+import com.aloel.maribelajar.ui.BaseActivity;
+import com.aloel.maribelajar.ui.QuizActivity;
+import com.aloel.maribelajar.ui.SplashScreen;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private Button bahasaIndonesiaBtn;
     private Button matematikaBtn;
@@ -22,40 +24,11 @@ public class MainActivity extends AppCompatActivity {
     private Intent svc;
     private Intent mIntent;
 
-    private boolean mIsBound = false;
-    private ServiceBGM mServ;
-    private ServiceConnection Scon =new ServiceConnection(){
-
-        public void onServiceConnected(ComponentName name, IBinder
-                binder) {
-            mServ = ((ServiceBGM.ServiceBinder)binder).getService();
-            mServ.resumeMusic();
-        }
-
-        public void onServiceDisconnected(ComponentName name) {
-            mServ = null;
-        }
-    };
-
-    void doBindService(){
-        bindService(new Intent(this,ServiceBGM.class),
-                Scon, Context.BIND_AUTO_CREATE);
-        mIsBound = true;
-    }
-
-    void doUnbindService()
-    {
-        if(mIsBound)
-        {
-            unbindService(Scon);
-            mIsBound = false;
-        }
-    }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        enableDatabase();
         doBindService();
 
         bahasaIndonesiaBtn  = (Button) findViewById(R.id.bt_bhs_indonesia);
@@ -64,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         bahasaIndonesiaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent = new Intent(getApplicationContext(), SplassScreen.class);
+                mIntent = new Intent(getApplicationContext(), QuizActivity.class);
+                mIntent.putExtra("subject", "Bahasa Indonesia");
+                mIntent.putExtra("class", "Class 1");
                 startActivity(mIntent);
             }
         });
