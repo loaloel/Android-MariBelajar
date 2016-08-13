@@ -15,12 +15,14 @@ import com.aloel.maribelajar.ui.widget.ItemClickSupport;
 
 import java.util.ArrayList;
 
-public class ClassBhsIndoActivity extends BaseActivity {
+public class ClassActivity extends BaseActivity {
 
     private RelativeLayout mLayoutSlider;
     private RecyclerView mRecyclerView;
     private ArrayList<StoreCategory> mCategories = new ArrayList<>();
     private ItemBrowseListAdapter mAdapter;
+
+    private String mSubject;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,10 +30,13 @@ public class ClassBhsIndoActivity extends BaseActivity {
         setContentView(R.layout.activity_class);
         enableDatabase();
 
+        mSubject = getIntent().getStringExtra("subject");
+
         String[] data = {"Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"};
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(mSubject);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_class);
@@ -52,7 +57,7 @@ public class ClassBhsIndoActivity extends BaseActivity {
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         mLayoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new ItemBrowseListAdapter(mCategories, getActivity());
+        mAdapter = new ItemBrowseListAdapter(mCategories, getActivity(), mSubject);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -63,7 +68,7 @@ public class ClassBhsIndoActivity extends BaseActivity {
                 String kelas = categories.getTitle();
 
                 Intent mIntent = new Intent(getApplicationContext(), QuizActivity.class);
-                mIntent.putExtra("subject", "Matematika");
+                mIntent.putExtra("subject", mSubject);
                 mIntent.putExtra("class", kelas);
                 startActivity(mIntent);
             }

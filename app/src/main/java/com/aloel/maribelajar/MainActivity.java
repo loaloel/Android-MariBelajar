@@ -1,31 +1,22 @@
 package com.aloel.maribelajar;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.aloel.maribelajar.service.ServiceBGM;
 import com.aloel.maribelajar.ui.BaseActivity;
-import com.aloel.maribelajar.ui.ClassBhsIndoActivity;
-import com.aloel.maribelajar.ui.ClassMatematikaActivity;
-import com.aloel.maribelajar.ui.QuizActivity;
-import com.aloel.maribelajar.ui.SplashScreen;
+import com.aloel.maribelajar.ui.ClassActivity;
 import com.aloel.maribelajar.ui.widget.PageIndicator;
 
 public class MainActivity extends BaseActivity {
@@ -38,7 +29,7 @@ public class MainActivity extends BaseActivity {
     private PageIndicator mIndicator;
     private ViewPager mViewPager;
 
-    private int[] mResource = {R.drawable.image_slider1, R.drawable.image_slider2};
+    private int[] mResource = {R.drawable.bahasa_indonesia_slide, R.drawable.matematika_slide};
     private String[] mResourceTitle = {"Bahasa Indonesia", "Matematika"};
 
     private static final int ANIM_VIEWPAGER_DELAY = 5000;
@@ -66,9 +57,8 @@ public class MainActivity extends BaseActivity {
         bahasaIndonesiaCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent = new Intent(getApplicationContext(), ClassBhsIndoActivity.class);
+                mIntent = new Intent(getApplicationContext(), ClassActivity.class);
                 mIntent.putExtra("subject", "Bahasa Indonesia");
-                mIntent.putExtra("class", "Class 1");
                 startActivity(mIntent);
             }
         });
@@ -76,9 +66,8 @@ public class MainActivity extends BaseActivity {
         matematikaCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent = new Intent(getApplicationContext(), ClassMatematikaActivity.class);
+                mIntent = new Intent(getApplicationContext(), ClassActivity.class);
                 mIntent.putExtra("subject", "Matematika");
-                mIntent.putExtra("class", "Class 1");
                 startActivity(mIntent);
             }
         });
@@ -192,12 +181,12 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     if (mResourceTitle[position].equals("Bahasa Indonesia")) {
-                        mIntent = new Intent(getApplicationContext(), ClassBhsIndoActivity.class);
+                        mIntent = new Intent(getApplicationContext(), ClassActivity.class);
                         mIntent.putExtra("subject", "Bahasa Indonesia");
                         mIntent.putExtra("class", "Class 1");
                         startActivity(mIntent);
                     } else {
-                        mIntent = new Intent(getApplicationContext(), ClassMatematikaActivity.class);
+                        mIntent = new Intent(getApplicationContext(), ClassActivity.class);
                         mIntent.putExtra("subject", "Bahasa Indonesia");
                         mIntent.putExtra("class", "Class 1");
                         startActivity(mIntent);

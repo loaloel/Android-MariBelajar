@@ -24,12 +24,13 @@ public class ItemBrowseListAdapter extends RecyclerView.Adapter<ItemBrowseListAd
 
     private List<StoreCategory> mStoreCategoryList;
     private Context mContext;
+    private String mSubject;
     private int lastPosition = -1;
 
-    public ItemBrowseListAdapter(List<StoreCategory> categori, Context context) {
+    public ItemBrowseListAdapter(List<StoreCategory> categori, Context context, String subject) {
         this.mStoreCategoryList = categori;
-
         this.mContext = context;
+        this.mSubject = subject;
     }
 
     @Override
@@ -48,20 +49,20 @@ public class ItemBrowseListAdapter extends RecyclerView.Adapter<ItemBrowseListAd
         String title = categories.getTitle();
         int image = 0;
 
-        holder.tvTitle.setText(categories.getTitle());
+        holder.tvTitle.setText(mSubject);
 
         if (title.equals("Kelas 1")) {
-            image = R.drawable.image_slider1;
+            image = R.drawable.kelas1;
         } else if (title.equals("Kelas 2")) {
-            image = R.drawable.image_slider2;
+            image = R.drawable.kelas2;
         } else if (title.equals("Kelas 3")) {
-            image = R.drawable.image_slider2;
+            image = R.drawable.kelas3;
         } else if (title.equals("Kelas 4")) {
-            image = R.drawable.image_slider1;
+            image = R.drawable.kelas4;
         } else if (title.equals("Kelas 5")) {
-            image = R.drawable.image_slider1;
+            image = R.drawable.kelas5;
         } else if (title.equals("Kelas 6")) {
-            image = R.drawable.image_slider2;
+            image = R.drawable.kelas6;
         }
 
         Picasso.with(mContext)

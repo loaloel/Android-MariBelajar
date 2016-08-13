@@ -22,8 +22,7 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.QuizActivity" />
-        <activity android:name=".ui.ClassMatematikaActivity" />
-        <activity android:name=".ui.ClassBhsIndoActivity" />
+        <activity android:name=".ui.ClassActivity" />
 
         <service android:name="com.aloel.maribelajar.service.ServiceBGM" android:enabled="true"  />
     </application>
