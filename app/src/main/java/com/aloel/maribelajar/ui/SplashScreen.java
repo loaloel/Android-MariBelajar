@@ -1,20 +1,29 @@
 package com.aloel.maribelajar.ui;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.aloel.maribelajar.MainActivity;
 import com.aloel.maribelajar.R;
+import com.aloel.maribelajar.database.CacheDb;
+import com.aloel.maribelajar.model.Quiz;
 import com.aloel.maribelajar.service.ServiceBGM;
 import com.aloel.maribelajar.util.Cons;
 import com.aloel.maribelajar.util.Debug;
 import com.aloel.maribelajar.util.Util;
+import com.aloel.maribelajar.volley.VolleyRequest;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,15 +31,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class SplashScreen extends BaseActivity {
 
-    Intent svc;
+    private Intent svc;
+    private ArrayList<Quiz> mQuiz = new ArrayList<Quiz>();
+    private CacheDb mCacheDb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
+
+        mCacheDb = new CacheDb(getDatabase());
 
         Util.createAppDir();
         initDatabase();
@@ -38,10 +52,7 @@ public class SplashScreen extends BaseActivity {
 
         svc = new Intent(this, ServiceBGM.class);
         startService(svc);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        getConstantConnection();
     }
 
     @Override
@@ -50,6 +61,8 @@ public class SplashScreen extends BaseActivity {
         if (mServ != null) {
             mServ.resumeMusic();
         }
+
+        mCacheDb.reload(getDatabase());
     }
 
     @Override
@@ -128,5 +141,80 @@ public class SplashScreen extends BaseActivity {
         }
 
         enableDatabase();
+    }
+
+    private void getConstantConnection() {
+        String url = "http://aloel.esy.es/question.php";
+
+        VolleyRequest mRequest;
+        mRequest = new VolleyRequest(Request.Method.GET, url, null,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("Response", response);
+                        try {
+                            mQuiz = constantParse(response);
+                            mCacheDb.update(mQuiz);
+
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("ERROR", "ERROR, " + error.getMessage());
+
+                        mQuiz = mCacheDb.getQuizAll();
+                        if (mQuiz == null) {
+                            Toast.makeText(getActivity(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }
+                });
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(mRequest);
+
+    }
+
+    public ArrayList<Quiz> constantParse(String stringJson) throws JSONException {
+        ArrayList<Quiz> mQuiz = null;
+
+        if (stringJson != null) {
+            mQuiz = new ArrayList<Quiz>();
+            JSONArray jsonArray = new JSONArray(stringJson);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Quiz quiz = new Quiz();
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                quiz.id             = jsonObject.getString("id");
+                quiz.subject        = jsonObject.getString("subject");
+                quiz.classStudent   = jsonObject.getString("class");
+                quiz.type           = jsonObject.getString("type");
+                quiz.question       = jsonObject.getString("question");
+                quiz.image          = jsonObject.getString("image");
+                quiz.option1        = jsonObject.getString("option1");
+                quiz.option2        = jsonObject.getString("option2");
+                quiz.option3        = jsonObject.getString("option3");
+                quiz.option4        = jsonObject.getString("option4");
+                quiz.answer         = jsonObject.getString("answer");
+
+                mQuiz.add(quiz);
+            }
+        }
+
+        return mQuiz;
     }
 }

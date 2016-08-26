@@ -111,7 +111,6 @@ public class Quiz1 extends BaseFragment {
 
             try {
                 Log.e("GGG", "DISINI");
-                mQuiz = mCacheDb.getQuiz(String.valueOf(quizNumber), mSubject, mClass);
                 result = 1;
             } catch (Exception e) {
                 e.printStackTrace();

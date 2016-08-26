@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Quiz implements Parcelable {
 
-    public int id;
+    public String id;
     public String subject;
     public String classStudent;
     public String type;
@@ -20,7 +20,7 @@ public class Quiz implements Parcelable {
     public Quiz() {}
 
     public Quiz(Parcel in) {
-        id              = in.readInt();
+        id              = in.readString();
         subject         = in.readString();
         classStudent    = in.readString();
         type            = in.readString();
@@ -58,7 +58,7 @@ public class Quiz implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
 
-        out.writeInt(id);
+        out.writeString(id);
         out.writeString(subject);
         out.writeString(classStudent);
         out.writeString(type);

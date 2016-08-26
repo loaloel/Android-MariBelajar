@@ -45,9 +45,19 @@
         android:layout_below="@+id/rl_slider"
         android:padding="10dp">
 
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Latihan Yuk ..."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_1"
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
@@ -68,7 +78,6 @@
                         android:id="@+id/iv_bhs_indonesia"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
@@ -112,7 +121,6 @@
                         android:id="@+id/iv_matematika"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
