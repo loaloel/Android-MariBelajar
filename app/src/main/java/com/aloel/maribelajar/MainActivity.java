@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 mIntent = new Intent(getApplicationContext(), QuizActivity.class);
                 mIntent.putExtra("subject", "Bahasa Indonesia");
-                mIntent.putExtra("class", String.valueOf(kelasIndex));
+                mIntent.putExtra("class", "Class " + kelasIndex);
                 startActivity(mIntent);
             }
         });
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 mIntent = new Intent(getApplicationContext(), QuizActivity.class);
                 mIntent.putExtra("subject", "Matematika");
-                mIntent.putExtra("class", String.valueOf(kelasIndex));
+                mIntent.putExtra("class", "Class " + kelasIndex);
                 startActivity(mIntent);
             }
         });
