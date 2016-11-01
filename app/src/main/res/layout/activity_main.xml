@@ -2,141 +2,143 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#e1f5fe">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+        android:layout_height="?attr/actionBarSize">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        <ImageView
+            android:src="@drawable/maribelajar_logo"
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_slider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/center"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_toolbar"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pagerBrowseSlider"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.aloel.maribelajar.ui.widget.CirclePageIndicator
-            android:id="@+id/indicatorHome"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:padding="10dp" />
+            android:layout_centerInParent="true">
 
+            <ImageView
+                android:id="@+id/iv_next"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_kelas"
+                android:src="@drawable/next" />
+
+            <ImageView
+                android:id="@+id/iv_prev"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/prev" />
+
+            <TextView
+                android:id="@+id/tv_kelas"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_toRightOf="@+id/iv_prev"
+                android:background="@drawable/rounded_bottom"
+                android:gravity="center"
+                android:text="Kelas 1"
+                android:textColor="#25b6f6"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </RelativeLayout>
-
-    <View
-        android:id="@+id/center"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_slider"
-        android:padding="10dp">
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_bhs_indo"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="5dp">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <RelativeLayout
+                    android:id="@+id/rl_bahasa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:layout_centerVertical="true">
 
-                    <com.aloel.maribelajar.ui.widget.AdjustableImageView
+                    <ImageView
                         android:id="@+id/iv_bhs_indonesia"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/app_name"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/bahasa_indonesia" />
-
-                    <RelativeLayout
                         android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_bahasa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_bhs_indonesia"
-                        android:background="@color/transparent_dark"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="10dp"
-                            android:text="Bahasa Indonesia"
-                            android:textColor="@color/white"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+                        android:layout_centerHorizontal="true"
+                        android:padding="10dp"
+                        android:text="Bahasa Indonesia"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_matematika"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="5dp">
+                android:layout_weight="1">
 
                 <RelativeLayout
+                    android:id="@+id/rl_matematika"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:layout_centerVertical="true">
 
-                    <com.aloel.maribelajar.ui.widget.AdjustableImageView
+                    <ImageView
                         android:id="@+id/iv_matematika"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/app_name"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/matematika" />
-
-                    <RelativeLayout
                         android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_matematika" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_matematika"
-                        android:background="@color/transparent_dark"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:padding="10dp"
-                            android:text="Matematika"
-                            android:textColor="@color/white"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+                        android:layout_centerHorizontal="true"
+                        android:padding="10dp"
+                        android:text="Matematika"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

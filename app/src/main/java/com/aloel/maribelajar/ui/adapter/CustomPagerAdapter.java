@@ -31,12 +31,12 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
 
         switch (position) {
-            case 0:
-                fragment = new Quiz1();
-            case 1:
-                fragment = new Quiz2();
-            case 2:
-                fragment = new Quiz3();
+//            case 0:
+//                fragment = new Quiz1();
+//            case 1:
+//                fragment = new Quiz2();
+//            case 2:
+//                fragment = new Quiz3();
 
             default:
                 fragment = new Quiz1();

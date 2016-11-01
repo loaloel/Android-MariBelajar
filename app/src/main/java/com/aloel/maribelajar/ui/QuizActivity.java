@@ -41,9 +41,6 @@ public class QuizActivity extends BaseActivity {
         mRight      = (ImageView) findViewById(R.id.iv_right);
         mViewPager  = (ViewPager) findViewById(R.id.viewpager);
 
-        mLeftIv.setColorFilter(getResources().getColor(R.color.colorOrange), PorterDuff.Mode.SRC_ATOP);
-        mRight.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-
         String mSubject = getIntent().getExtras().getString("subject");
         String mClass = getIntent().getExtras().getString("class");
 

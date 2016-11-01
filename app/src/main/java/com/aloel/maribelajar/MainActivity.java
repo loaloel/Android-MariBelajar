@@ -17,26 +17,21 @@ import android.widget.TextView;
 
 import com.aloel.maribelajar.ui.BaseActivity;
 import com.aloel.maribelajar.ui.ClassActivity;
+import com.aloel.maribelajar.ui.QuizActivity;
 import com.aloel.maribelajar.ui.widget.PageIndicator;
 
 public class MainActivity extends BaseActivity {
 
     private View bahasaIndonesiaCv;
     private View matematikaCv;
+    private View mNext;
+    private View mPrev;
+
+    private TextView mKelasTv;
+
+    private int kelasIndex = 1;
 
     private Intent mIntent;
-
-    private PageIndicator mIndicator;
-    private ViewPager mViewPager;
-
-    private int[] mResource = {R.drawable.bahasa_indonesia_slide, R.drawable.matematika_slide};
-    private String[] mResourceTitle = {"Bahasa Indonesia", "Matematika"};
-
-    private static final int ANIM_VIEWPAGER_DELAY = 5000;
-    private Handler handler;
-    private Runnable animateViewPager;
-    private boolean stopSliding = false;
-    private CustomPagerAdapter mCustomPagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,35 +39,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         enableDatabase();
         doBindService();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mIndicator = (PageIndicator) findViewById(R.id.indicatorHome);
-        mViewPager = (ViewPager) findViewById(R.id.pagerBrowseSlider);
-
-        bahasaIndonesiaCv  = findViewById(R.id.cv_bhs_indo);
-        matematikaCv       = findViewById(R.id.cv_matematika);
-
-        bahasaIndonesiaCv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIntent = new Intent(getApplicationContext(), ClassActivity.class);
-                mIntent.putExtra("subject", "Bahasa Indonesia");
-                startActivity(mIntent);
-            }
-        });
-
-        matematikaCv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIntent = new Intent(getApplicationContext(), ClassActivity.class);
-                mIntent.putExtra("subject", "Matematika");
-                startActivity(mIntent);
-            }
-        });
-
-        setupSliderHome();
+        initialize();
     }
 
     @Override
@@ -102,106 +69,75 @@ public class MainActivity extends BaseActivity {
         doUnbindService();
     }
 
-    private void runnable(final int size) {
-        handler = new Handler();
-        animateViewPager = new Runnable() {
-            public void run() {
-                if (!stopSliding) {
-                    if (mViewPager.getCurrentItem() == size - 1) {
-                        mViewPager.setCurrentItem(0);
-                    } else {
-                        mViewPager.setCurrentItem(
-                                mViewPager.getCurrentItem() + 1, true);
-                    }
-                    handler.postDelayed(animateViewPager, ANIM_VIEWPAGER_DELAY);
-                }
-            }
-        };
-    }
+    private void initialize() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
-    private void setupSliderHome() {
-        mCustomPagerAdapter = new CustomPagerAdapter(getActivity());
+        bahasaIndonesiaCv   = findViewById(R.id.rl_bahasa);
+        matematikaCv        = findViewById(R.id.rl_matematika);
+        mNext               = findViewById(R.id.iv_next);
+        mPrev               = findViewById(R.id.iv_prev);
 
-        mViewPager.setAdapter(mCustomPagerAdapter);
-        mIndicator.setViewPager(mViewPager);
+        mKelasTv            = (TextView) findViewById(R.id.tv_kelas);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mKelasTv.setText("Kelas 1");
+        mPrev.setVisibility(View.INVISIBLE);
+
+        bahasaIndonesiaCv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onClick(View v) {
+                mIntent = new Intent(getApplicationContext(), QuizActivity.class);
+                mIntent.putExtra("subject", "Bahasa Indonesia");
+                mIntent.putExtra("class", String.valueOf(kelasIndex));
+                startActivity(mIntent);
             }
         });
 
-        runnable(mResource.length);
-        handler.postDelayed(animateViewPager,
-                ANIM_VIEWPAGER_DELAY);
-    }
+        matematikaCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIntent = new Intent(getApplicationContext(), QuizActivity.class);
+                mIntent.putExtra("subject", "Matematika");
+                mIntent.putExtra("class", String.valueOf(kelasIndex));
+                startActivity(mIntent);
+            }
+        });
 
-    class CustomPagerAdapter extends PagerAdapter {
+        mNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kelasIndex++;
 
-        Context mContext;
-        LayoutInflater mLayoutInflater;
-
-        public CustomPagerAdapter(Context context) {
-            mContext = context;
-            mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return mResource.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((RelativeLayout) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
-            View itemView = mLayoutInflater.inflate(R.layout.home_slider, container, false);
-
-            ImageView ivCoverSlide = (ImageView) itemView.findViewById(R.id.iv_home_slider);
-            TextView tvTitle = (TextView) itemView.findViewById(R.id.tv_home_slider);
-
-            ivCoverSlide.setImageResource(mResource[position]);
-            tvTitle.setText(mResourceTitle[position]);
-
-            ivCoverSlide.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mResourceTitle[position].equals("Bahasa Indonesia")) {
-                        mIntent = new Intent(getApplicationContext(), ClassActivity.class);
-                        mIntent.putExtra("subject", "Bahasa Indonesia");
-                        mIntent.putExtra("class", "Class 1");
-                        startActivity(mIntent);
-                    } else {
-                        mIntent = new Intent(getApplicationContext(), ClassActivity.class);
-                        mIntent.putExtra("subject", "Bahasa Indonesia");
-                        mIntent.putExtra("class", "Class 1");
-                        startActivity(mIntent);
-                    }
+                if (kelasIndex == 7) {
+                    mNext.setVisibility(View.INVISIBLE);
+                    mPrev.setVisibility(View.VISIBLE);
+                    return;
+                } else {
+                    mNext.setVisibility(View.VISIBLE);
+                    mPrev.setVisibility(View.VISIBLE);
                 }
-            });
 
-            container.addView(itemView);
+                mKelasTv.setText("Kelas " + kelasIndex);
+            }
+        });
 
-            return itemView;
-        }
+        mPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kelasIndex--;
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((RelativeLayout) object);
-        }
+                if (kelasIndex == 0) {
+                    mNext.setVisibility(View.VISIBLE);
+                    mPrev.setVisibility(View.INVISIBLE);
+                    return;
+                } else {
+                    mNext.setVisibility(View.VISIBLE);
+                    mPrev.setVisibility(View.VISIBLE);
+                }
+
+                mKelasTv.setText("Kelas " + kelasIndex);
+            }
+        });
     }
 }

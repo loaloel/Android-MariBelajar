@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_questionNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="SOAL 1"
-        android:textColor="@android:color/black"
-        android:textSize="18dp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +13,8 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_question"
@@ -33,20 +24,20 @@
             android:maxLines="10"
             android:text="Berapakan harga minyak saat ini ?"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:id="@+id/rl_a"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:padding="5dp">
 
             <RelativeLayout
                 android:id="@+id/rl_option_a"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle"
-                android:padding="10dp">
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -60,29 +51,29 @@
 
             <TextView
                 android:id="@+id/tv_option_a"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rl_option_a"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/rl_option_a"
                 android:gravity="center_vertical"
-                android:text="JAWABAN A"
+                android:text="Jawaban A"
                 android:textColor="@android:color/black"
-                android:textSize="18dp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_b"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:background="@color/colorOrange"
+            android:padding="5dp">
 
             <RelativeLayout
                 android:id="@+id/rl_option_b"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle"
-                android:padding="10dp">
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,29 +87,28 @@
 
             <TextView
                 android:id="@+id/tv_option_b"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rl_option_b"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/rl_option_b"
                 android:gravity="center_vertical"
-                android:text="JAWABAN B"
+                android:text="Jawaban B"
                 android:textColor="@android:color/black"
-                android:textSize="18dp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_c"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:padding="5dp">
 
             <RelativeLayout
                 android:id="@+id/rl_option_c"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle"
-                android:padding="10dp">
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,29 +122,28 @@
 
             <TextView
                 android:id="@+id/tv_option_c"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rl_option_c"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/rl_option_c"
                 android:gravity="center_vertical"
-                android:text="JAWABAN C"
+                android:text="Jawaban C"
                 android:textColor="@android:color/black"
-                android:textSize="18dp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_d"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:padding="5dp">
 
             <RelativeLayout
                 android:id="@+id/rl_option_d"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circle"
-                android:padding="10dp">
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,15 +157,15 @@
 
             <TextView
                 android:id="@+id/tv_option_d"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rl_option_d"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/rl_option_d"
                 android:gravity="center_vertical"
-                android:text="JAWABAN D"
+                android:text="Jawaban D"
                 android:textColor="@android:color/black"
-                android:textSize="18dp" />
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 

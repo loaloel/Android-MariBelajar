@@ -12,7 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.aloel.maribelajar.ui.SplashScreen">
+        <activity
+            android:name="com.aloel.maribelajar.ui.SplashScreen"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,11 +23,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.QuizActivity" />
-        <activity android:name=".ui.ClassActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.QuizActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ClassActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.MenuActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
 
-        <service android:name="com.aloel.maribelajar.service.ServiceBGM" android:enabled="true"  />
+        <service
+            android:name="com.aloel.maribelajar.service.ServiceBGM"
+            android:enabled="true" />
     </application>
 
 </manifest>

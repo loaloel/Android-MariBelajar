@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e1f5fe"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -19,67 +20,52 @@
         android:layout_below="@+id/toolbar" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <Button
+            android:id="@+id/btn_daftar_soal"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_bottom"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Daftar Soal"
+            android:textColor="#25b6f6"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_left"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:background="@color/colorPrimary"
-            android:src="@drawable/left" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/iv_right"
-            android:layout_toRightOf="@+id/iv_left"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="DAFTAR SOAL"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/holo_orange_light">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="KUMPULKAN"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-        </LinearLayout>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/btn_daftar_soal"
+            android:src="@drawable/prev" />
 
         <ImageView
             android:id="@+id/iv_right"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/holo_orange_light"
-            android:src="@drawable/right" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/iv_left"
+            android:src="@drawable/next" />
 
+        <Button
+            android:id="@+id/btn_kumpulkan"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/iv_right"
+            android:background="@drawable/rounded_bottom"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Kumpulkan"
+            android:textColor="#25b6f6"
+            android:textStyle="bold" />
     </RelativeLayout>
-
-
 </RelativeLayout>

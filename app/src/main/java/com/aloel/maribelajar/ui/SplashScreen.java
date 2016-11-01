@@ -39,7 +39,7 @@ public class SplashScreen extends BaseActivity {
         svc = new Intent(this, ServiceBGM.class);
         startService(svc);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
         finish();
     }
