@@ -3,6 +3,7 @@ package com.aloel.maribelajar.ui.fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -39,7 +40,6 @@ public class Quiz1 extends BaseFragment {
     private RelativeLayout rlOptionB;
     private RelativeLayout rlOptionC;
     private RelativeLayout rlOptionD;
-    private RelativeLayout rlD;
     private ImageView mImage;
 
     @Override
@@ -72,12 +72,55 @@ public class Quiz1 extends BaseFragment {
         tvOptionB = (TextView) root.findViewById(R.id.tv_option_b);
         tvOptionC = (TextView) root.findViewById(R.id.tv_option_c);
         tvOptionD = (TextView) root.findViewById(R.id.tv_option_d);
-        rlOptionA = (RelativeLayout) root.findViewById(R.id.rl_option_a);
-        rlOptionB = (RelativeLayout) root.findViewById(R.id.rl_option_b);
-        rlOptionC = (RelativeLayout) root.findViewById(R.id.rl_option_c);
-        rlOptionD = (RelativeLayout) root.findViewById(R.id.rl_option_d);
-        rlD       = (RelativeLayout) root.findViewById(R.id.rl_d);
+        rlOptionA = (RelativeLayout) root.findViewById(R.id.rl_a);
+        rlOptionB = (RelativeLayout) root.findViewById(R.id.rl_b);
+        rlOptionC = (RelativeLayout) root.findViewById(R.id.rl_c);
+        rlOptionD = (RelativeLayout) root.findViewById(R.id.rl_d);
         mImage    = (ImageView) root.findViewById(R.id.iv_image);
+
+        rlOptionA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                saveAnswer("number"+quizNumber, tvOptionA.getText().toString());
+            }
+        });
+
+        rlOptionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                saveAnswer("number"+quizNumber, tvOptionB.getText().toString());
+            }
+        });
+
+        rlOptionC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                saveAnswer("number"+quizNumber, tvOptionC.getText().toString());
+            }
+        });
+
+        rlOptionD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                saveAnswer("number"+quizNumber, tvOptionD.getText().toString());
+            }
+        });
     }
 
     public void updateView(Quiz quiz) {
@@ -88,9 +131,9 @@ public class Quiz1 extends BaseFragment {
         tvOptionC.setText(quiz.option3);
 
         if (quiz.classStudent.equals("Class 1") || quiz.classStudent.equals("Class 2")) {
-            rlD.setVisibility(View.GONE);
+            rlOptionD.setVisibility(View.GONE);
         } else {
-            rlD.setVisibility(View.VISIBLE);
+            rlOptionD.setVisibility(View.VISIBLE);
             tvOptionD.setText(quiz.option4);
         }
 

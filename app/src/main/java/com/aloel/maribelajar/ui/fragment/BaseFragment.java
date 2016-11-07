@@ -42,4 +42,8 @@ public class BaseFragment extends Fragment {
 	public boolean buildVersion() {
 		return ((BaseActivity) getActivity()).buildVersion();
 	}
+
+	public void saveAnswer(String number, String answer) {
+		((BaseActivity) getActivity()).saveAnswer(number, answer);
+	}
 }

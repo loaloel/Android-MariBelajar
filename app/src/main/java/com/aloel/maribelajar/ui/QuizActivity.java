@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.aloel.maribelajar.R;
@@ -22,6 +23,8 @@ public class QuizActivity extends BaseActivity {
 
     private ImageView mLeftIv;
     private ImageView mRight;
+    private Button mKumpulkanBtn;
+    private Button mDaftarSoalBtn;
 
     private ViewPager mViewPager;
 
@@ -37,14 +40,17 @@ public class QuizActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mLeftIv     = (ImageView) findViewById(R.id.iv_left);
-        mRight      = (ImageView) findViewById(R.id.iv_right);
-        mViewPager  = (ViewPager) findViewById(R.id.viewpager);
+        mLeftIv             = (ImageView) findViewById(R.id.iv_left);
+        mRight              = (ImageView) findViewById(R.id.iv_right);
+        mKumpulkanBtn       = (Button) findViewById(R.id.btn_kumpulkan);
+        mDaftarSoalBtn      = (Button) findViewById(R.id.btn_daftar_soal);
+        mViewPager          = (ViewPager) findViewById(R.id.viewpager);
 
         String mSubject = getIntent().getExtras().getString("subject");
         String mClass = getIntent().getExtras().getString("class");
 
         mAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this, mSubject, mClass);
+        mViewPager.setOffscreenPageLimit(10);
         mViewPager.setAdapter(mAdapter);
 
         mLeftIv.setOnClickListener(new View.OnClickListener() {
@@ -77,5 +83,18 @@ public class QuizActivity extends BaseActivity {
             }
         });
 
+        mKumpulkanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        clearAnswer();
     }
 }
