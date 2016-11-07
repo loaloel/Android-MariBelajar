@@ -45,37 +45,45 @@ public class QuizActivity extends BaseActivity {
         String mClass = getIntent().getExtras().getString("class");
 
         mAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this, mSubject, mClass);
+        mViewPager.setOffscreenPageLimit(10);
         mViewPager.setAdapter(mAdapter);
 
         mLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentItem = mViewPager.getCurrentItem();
-                Log.e("Current Item", currentItem + "");
-
-                if (currentItem == 0) {
-                    mViewPager.setCurrentItem(9);
-                } else {
-                    currentItem--;
-                    mViewPager.setCurrentItem(currentItem);
-                }
+                prev();
             }
         });
 
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentItem = mViewPager.getCurrentItem();
-                Log.e("Current Item", currentItem + "");
-
-                if (currentItem == 9) {
-                    mViewPager.setCurrentItem(0);
-                } else {
-                    currentItem++;
-                    mViewPager.setCurrentItem(currentItem);
-                }
+                next();
             }
         });
+    }
 
+    public void next() {
+        int currentItem = mViewPager.getCurrentItem();
+        Log.e("Current Item", currentItem + "");
+
+        if (currentItem == 9) {
+            mViewPager.setCurrentItem(0);
+        } else {
+            currentItem++;
+            mViewPager.setCurrentItem(currentItem);
+        }
+    }
+
+    public void prev() {
+        int currentItem = mViewPager.getCurrentItem();
+        Log.e("Current Item", currentItem + "");
+
+        if (currentItem == 0) {
+            mViewPager.setCurrentItem(9);
+        } else {
+            currentItem--;
+            mViewPager.setCurrentItem(currentItem);
+        }
     }
 }

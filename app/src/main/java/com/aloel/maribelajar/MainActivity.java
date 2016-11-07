@@ -108,8 +108,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 kelasIndex++;
+                mKelasTv.setText("Kelas " + kelasIndex);
 
-                if (kelasIndex == 7) {
+                if (kelasIndex == 6) {
                     mNext.setVisibility(View.INVISIBLE);
                     mPrev.setVisibility(View.VISIBLE);
                     return;
@@ -117,8 +118,6 @@ public class MainActivity extends BaseActivity {
                     mNext.setVisibility(View.VISIBLE);
                     mPrev.setVisibility(View.VISIBLE);
                 }
-
-                mKelasTv.setText("Kelas " + kelasIndex);
             }
         });
 
@@ -126,8 +125,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 kelasIndex--;
+                mKelasTv.setText("Kelas " + kelasIndex);
 
-                if (kelasIndex == 0) {
+                if (kelasIndex == 1) {
                     mNext.setVisibility(View.VISIBLE);
                     mPrev.setVisibility(View.INVISIBLE);
                     return;
@@ -135,8 +135,6 @@ public class MainActivity extends BaseActivity {
                     mNext.setVisibility(View.VISIBLE);
                     mPrev.setVisibility(View.VISIBLE);
                 }
-
-                mKelasTv.setText("Kelas " + kelasIndex);
             }
         });
     }

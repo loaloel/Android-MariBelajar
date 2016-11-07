@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.aloel.maribelajar.R;
+import com.aloel.maribelajar.model.Answer;
 import com.aloel.maribelajar.service.ServiceBGM;
 import com.aloel.maribelajar.util.Cons;
 import com.aloel.maribelajar.util.Debug;
@@ -264,4 +265,43 @@ public class BaseActivity extends AppCompatActivity {
 		}
 	}
 
+	public void saveAnswer(String number, String value) {
+		Editor editor = mSharedPref.edit();
+
+		editor.putString("number" + number, value);
+		editor.commit();
+	}
+
+	public Answer getAnswer() {
+		Answer answer = new Answer();
+
+		answer.number1	= mSharedPref.getString("number1", "");
+		answer.number2	= mSharedPref.getString("number2", "");
+		answer.number3	= mSharedPref.getString("number3", "");
+		answer.number4	= mSharedPref.getString("number4", "");
+		answer.number5	= mSharedPref.getString("number5", "");
+		answer.number6	= mSharedPref.getString("number6", "");
+		answer.number7	= mSharedPref.getString("number7", "");
+		answer.number8	= mSharedPref.getString("number8", "");
+		answer.number9	= mSharedPref.getString("number9", "");
+		answer.number10	= mSharedPref.getString("number10", "");
+
+		return answer;
+	}
+
+	public void clearAnswer() {
+		Editor editor = mSharedPref.edit();
+
+		editor.putString("number1", "");
+		editor.putString("number2", "");
+		editor.putString("number3", "");
+		editor.putString("number4", "");
+		editor.putString("number5", "");
+		editor.putString("number6", "");
+		editor.putString("number7", "");
+		editor.putString("number8", "");
+		editor.putString("number9", "");
+		editor.putString("number10", "");
+		editor.commit();
+	}
 }
