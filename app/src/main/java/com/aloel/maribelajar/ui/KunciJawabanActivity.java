@@ -1,7 +1,9 @@
 package com.aloel.maribelajar.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -14,8 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aloel.maribelajar.R;
+import com.aloel.maribelajar.database.CacheDb;
 import com.aloel.maribelajar.model.Answer;
+import com.aloel.maribelajar.model.Quiz;
 import com.aloel.maribelajar.ui.adapter.CustomPagerAdapter;
+import com.squareup.picasso.Picasso;
+
+import java.net.URL;
+import java.util.ArrayList;
 
 public class KunciJawabanActivity extends BaseActivity {
 
@@ -28,15 +36,23 @@ public class KunciJawabanActivity extends BaseActivity {
 
     private CustomPagerAdapter mAdapter;
 
+    private ArrayList<Quiz> quizArrayList = new ArrayList<Quiz>();
+    private CacheDb mCacheDb;
+
+    private LoadCacheTask mLoadCacheTask;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_kunci_jawaban);
         enableDatabase();
+        mCacheDb = new CacheDb(getDatabase());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        (mLoadCacheTask = new LoadCacheTask()).execute();
 
         mLeftIv             = (ImageView) findViewById(R.id.iv_left);
         mRight              = (ImageView) findViewById(R.id.iv_right);
@@ -68,7 +84,7 @@ public class KunciJawabanActivity extends BaseActivity {
         mPenjelasanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showDialogPenjelasan();
             }
         });
 
@@ -78,6 +94,26 @@ public class KunciJawabanActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCacheDb.reload(getDatabase());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        clearAnswer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        clearAnswer();
     }
 
     public void next() {
@@ -104,23 +140,10 @@ public class KunciJawabanActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        clearAnswer();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        clearAnswer();
-    }
-
-    public void showDialogSoal(ViewPager viewPager) {
+    public void showDialogPenjelasan () {
+        int nilai = 0;
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.dialog_daftar_soal, null);
+        View view = inflater.inflate(R.layout.dialog_penjelasan, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
@@ -129,149 +152,51 @@ public class KunciJawabanActivity extends BaseActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-        Answer answer = getAnswer();
-        TextView number1 = (TextView) view.findViewById(R.id.tv_number_1);
-        TextView number2 = (TextView) view.findViewById(R.id.tv_number_2);
-        TextView number3 = (TextView) view.findViewById(R.id.tv_number_3);
-        TextView number4 = (TextView) view.findViewById(R.id.tv_number_4);
-        TextView number5 = (TextView) view.findViewById(R.id.tv_number_5);
-        TextView number6 = (TextView) view.findViewById(R.id.tv_number_6);
-        TextView number7 = (TextView) view.findViewById(R.id.tv_number_7);
-        TextView number8 = (TextView) view.findViewById(R.id.tv_number_8);
-        TextView number9 = (TextView) view.findViewById(R.id.tv_number_9);
-        TextView number10 = (TextView) view.findViewById(R.id.tv_number_10);
+        TextView mPenjelasanTv = (TextView) view.findViewById(R.id.tv_penjelasan);
+        ImageView mPenjelasanIv = (ImageView) view.findViewById(R.id.iv_penjelasan);
+        Button mMengertiBtn = (Button) view.findViewById(R.id.btn_ulangi);
 
-        View viewNumber1 = view.findViewById(R.id.rl_number_1);
-        View viewNumber2 = view.findViewById(R.id.rl_number_2);
-        View viewNumber3 = view.findViewById(R.id.rl_number_3);
-        View viewNumber4 = view.findViewById(R.id.rl_number_4);
-        View viewNumber5 = view.findViewById(R.id.rl_number_5);
-        View viewNumber6 = view.findViewById(R.id.rl_number_6);
-        View viewNumber7 = view.findViewById(R.id.rl_number_7);
-        View viewNumber8 = view.findViewById(R.id.rl_number_8);
-        View viewNumber9 = view.findViewById(R.id.rl_number_9);
-        View viewNumber10 = view.findViewById(R.id.rl_number_10);
+        Quiz quiz = quizArrayList.get(mViewPager.getCurrentItem());
 
-        if (!answer.number1.equals("")) {
-            number1.setText("Sudah dijawab");
-            viewNumber1.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number2.equals("")) {
-            number2.setText("Sudah dijawab");
-            viewNumber2.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number3.equals("")) {
-            number3.setText("Sudah dijawab");
-            viewNumber3.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number4.equals("")) {
-            number4.setText("Sudah dijawab");
-            viewNumber4.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number5.equals("")) {
-            number5.setText("Sudah dijawab");
-            viewNumber5.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number6.equals("")) {
-            number6.setText("Sudah dijawab");
-            viewNumber6.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number7.equals("")) {
-            number7.setText("Sudah dijawab");
-            viewNumber7.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number8.equals("")) {
-            number8.setText("Sudah dijawab");
-            viewNumber8.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number9.equals("")) {
-            number9.setText("Sudah dijawab");
-            viewNumber9.setBackgroundResource(R.drawable.round_orange);
-        }
-        if (!answer.number10.equals("")) {
-            number10.setText("Sudah dijawab");
-            viewNumber10.setBackgroundResource(R.drawable.round_orange);
+        if (!quiz.penjelasan.equals("")) {
+            mPenjelasanTv.setText(quizArrayList.get(mViewPager.getCurrentItem()).penjelasan);
+        } else {
+            Picasso.with(getActivity())
+                    .load((quiz.penjelasan_image.equals("")) ? null : quiz.penjelasan_image)
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .into(mPenjelasanIv);
         }
 
-        viewNumber1.setOnClickListener(new View.OnClickListener() {
+        mMengertiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewPager.setCurrentItem(0);
                 dialog.dismiss();
             }
         });
+    }
 
-        viewNumber2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(1);
-                dialog.dismiss();
+    public class LoadCacheTask extends AsyncTask<URL, Integer, Long> {
+        Quiz mQuiz;
+
+        protected Long doInBackground(URL... urls) {
+            long result = 0;
+
+            try {
+                Log.e("GGG", "DISINI");
+                quizArrayList = mCacheDb.getQuizAll();
+                result = 1;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
 
-        viewNumber3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(2);
-                dialog.dismiss();
-            }
-        });
+            return result;
+        }
 
-        viewNumber4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(3);
-                dialog.dismiss();
-            }
-        });
+        protected void onProgressUpdate(Integer... progress) {
+        }
 
-        viewNumber5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(4);
-                dialog.dismiss();
-            }
-        });
-
-        viewNumber6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(5);
-                dialog.dismiss();
-            }
-        });
-
-        viewNumber7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(6);
-                dialog.dismiss();
-            }
-        });
-
-        viewNumber8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(7);
-                dialog.dismiss();
-            }
-        });
-
-        viewNumber9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(8);
-                dialog.dismiss();
-            }
-        });
-
-        viewNumber10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(9);
-                dialog.dismiss();
-            }
-        });
-
+        protected void onPostExecute(Long result) {
+        }
     }
 }

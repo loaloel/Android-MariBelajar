@@ -16,6 +16,8 @@ public class Quiz implements Parcelable {
     public String option3;
     public String option4;
     public String answer;
+    public String penjelasan;
+    public String penjelasan_image;
 
     public Quiz() {}
 
@@ -31,6 +33,8 @@ public class Quiz implements Parcelable {
         option3         = in.readString();
         option4         = in.readString();
         answer          = in.readString();
+        penjelasan      = in.readString();
+        penjelasan_image= in.readString();
     }
 
     public static final Parcelable.Creator<Quiz> CREATOR = new Parcelable.Creator<Quiz>() {
@@ -69,5 +73,7 @@ public class Quiz implements Parcelable {
         out.writeString(option3);
         out.writeString(option4);
         out.writeString(answer);
+        out.writeString(penjelasan);
+        out.writeString(penjelasan_image);
     }
 }

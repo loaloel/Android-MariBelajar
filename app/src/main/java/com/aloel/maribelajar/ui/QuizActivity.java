@@ -1,5 +1,6 @@
 package com.aloel.maribelajar.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aloel.maribelajar.R;
+import com.aloel.maribelajar.database.CacheDb;
 import com.aloel.maribelajar.model.Answer;
 import com.aloel.maribelajar.model.Quiz;
 import com.aloel.maribelajar.ui.adapter.CustomPagerAdapter;
@@ -25,6 +27,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class QuizActivity extends BaseActivity {
+
+    private CacheDb mCacheDb;
+
+    private LoadCacheTask mLoadCacheTask;
 
     private ImageView mLeftIv;
     private ImageView mRight;
@@ -35,11 +41,17 @@ public class QuizActivity extends BaseActivity {
 
     private CustomPagerAdapter mAdapter;
 
+    private String mSubject;
+    private String mClass;
+
+    private ArrayList<Quiz> quizArrayList = new ArrayList<Quiz>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         enableDatabase();
+        mCacheDb = new CacheDb(getDatabase());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,8 +63,10 @@ public class QuizActivity extends BaseActivity {
         mDaftarSoalBtn      = (Button) findViewById(R.id.btn_daftar_soal);
         mViewPager          = (ViewPager) findViewById(R.id.viewpager);
 
-        String mSubject = getIntent().getExtras().getString("subject");
-        String mClass = getIntent().getExtras().getString("class");
+        mSubject = getIntent().getExtras().getString("subject");
+        mClass = getIntent().getExtras().getString("class");
+
+        (mLoadCacheTask = new LoadCacheTask()).execute();
 
         mAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this, mSubject, mClass);
         mViewPager.setOffscreenPageLimit(10);
@@ -87,8 +101,24 @@ public class QuizActivity extends BaseActivity {
         });
     }
 
-    public void setCurrentPage(int page) {
-        mViewPager.setCurrentItem(0);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCacheDb.reload(getDatabase());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        clearAnswer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        clearAnswer();
     }
 
     public void next() {
@@ -115,21 +145,8 @@ public class QuizActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        clearAnswer();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        clearAnswer();
-    }
-
     public void showDialogKumpulkan () {
+        int nilai = 0;
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_kumpulkan, null);
 
@@ -139,6 +156,80 @@ public class QuizActivity extends BaseActivity {
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+
+        TextView mNilaiTv = (TextView) view.findViewById(R.id.tv_nilai);
+        Button mUlangiBtn = (Button) view.findViewById(R.id.btn_ulangi);
+        Button mKunciJawaban = (Button) view.findViewById(R.id.btn_kunci_jawaan);
+
+        Answer answer = getAnswer();
+        if (answer.number1.equals(quizArrayList.get(0).answer)) {
+            nilai++;
+        }
+        if (answer.number2.equals(quizArrayList.get(1).answer)) {
+            nilai++;
+        }
+        if (answer.number3.equals(quizArrayList.get(2).answer)) {
+            nilai++;
+        }
+        if (answer.number4.equals(quizArrayList.get(3).answer)) {
+            nilai++;
+        }
+        if (answer.number5.equals(quizArrayList.get(4).answer)) {
+            nilai++;
+        }
+        if (answer.number6.equals(quizArrayList.get(5).answer)) {
+            nilai++;
+        }
+        if (answer.number7.equals(quizArrayList.get(6).answer)) {
+            nilai++;
+        }
+        if (answer.number8.equals(quizArrayList.get(7).answer)) {
+            nilai++;
+        }
+        if (answer.number9.equals(quizArrayList.get(8).answer)) {
+            nilai++;
+        }
+        if (answer.number10.equals(quizArrayList.get(9).answer)) {
+            nilai++;
+        }
+
+        mNilaiTv.setText(String.valueOf(nilai));
+
+        if (answer.number1.equals("") || answer.number2.equals("") || answer.number3.equals("") ||
+                answer.number4.equals("") || answer.number5.equals("") || answer.number6.equals("") ||
+                answer.number7.equals("") || answer.number8.equals("") || answer.number9.equals("") ||
+                answer.number10.equals("")) {
+        } else {
+            dialog.show();
+        }
+
+        mUlangiBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("GGG", "DISINI");
+                Intent mIntent = new Intent(getActivity(), QuizActivity.class);
+                mIntent.putExtra("subject", mSubject);
+                mIntent.putExtra("class", mClass);
+                startActivity(mIntent);
+
+                clearAnswer();
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        mKunciJawaban.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("QQQ", "DISINI");
+                Intent mIntent = new Intent(getActivity(), KunciJawabanActivity.class);
+                mIntent.putExtra("subject", mSubject);
+                mIntent.putExtra("class", mClass);
+                startActivity(mIntent);
+
+                dialog.dismiss();
+            }
+        });
     }
 
     public void showDialogSoal() {
@@ -296,5 +387,29 @@ public class QuizActivity extends BaseActivity {
             }
         });
 
+    }
+
+    public class LoadCacheTask extends AsyncTask<URL, Integer, Long> {
+        Quiz mQuiz;
+
+        protected Long doInBackground(URL... urls) {
+            long result = 0;
+
+            try {
+                Log.e("GGG", "DISINI");
+                quizArrayList = mCacheDb.getQuizAll();
+                result = 1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(Long result) {
+        }
     }
 }

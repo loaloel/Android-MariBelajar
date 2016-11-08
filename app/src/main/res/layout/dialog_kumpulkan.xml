@@ -10,21 +10,21 @@
         android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/tv_daftar_soal"
+            android:id="@+id/tv_kumpulkan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="@drawable/round_border"
             android:gravity="center"
             android:padding="10dp"
-            android:text="TINGKATKAN NILAIMU"
+            android:text="AYO KITA BELAJAR LEBIH GIAT LAGI"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_daftar_soal"
+            android:layout_below="@+id/tv_kumpulkan"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:background="@drawable/round_border">
 
@@ -47,33 +47,34 @@
 
                         <TextView
                             android:id="@+id/tv_desc_nilai"
-                            android:layout_width="60dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Nilai"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="26sp" />
 
                         <LinearLayout
-                            android:layout_width="60dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_desc_nilai"
                             android:gravity="center"
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tv_nilai"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
                                 android:textColor="@color/white"
-                                android:textSize="18sp" />
+                                android:textSize="26sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="/10"
                                 android:textColor="@color/white"
-                                android:textSize="18sp" />
+                                android:textSize="26sp" />
                         </LinearLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -90,6 +91,7 @@
                         android:orientation="vertical">
 
                         <Button
+                            android:id="@+id/btn_ulangi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_orange"
@@ -98,11 +100,12 @@
                             android:textSize="16sp" />
 
                         <Button
+                            android:id="@+id/btn_kunci_jawaan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/activity_horizontal_margin"
                             android:background="@drawable/round_orange"
-                            android:text="Lihat Hasil"
+                            android:text="Kunci Jawaban"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
