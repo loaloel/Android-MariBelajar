@@ -33,6 +33,7 @@ public class Quiz1 extends BaseFragment {
     private String mSubject = "";
     private String mClass = "";
 
+    private TextView tvNumber;
     private TextView tvQuestion;
     private TextView tvOptionA;
     private TextView tvOptionB;
@@ -69,6 +70,7 @@ public class Quiz1 extends BaseFragment {
     }
 
     public void initialize(View root) {
+        tvNumber = (TextView) root.findViewById(R.id.tv_number);
         tvQuestion = (TextView) root.findViewById(R.id.tv_question);
         tvOptionA = (TextView) root.findViewById(R.id.tv_option_a);
         tvOptionB = (TextView) root.findViewById(R.id.tv_option_b);
@@ -141,6 +143,7 @@ public class Quiz1 extends BaseFragment {
 
     public void updateView(Quiz quiz) {
         Log.e("FFF", quiz.question);
+        tvNumber.setText(String.valueOf(quizNumber));
         tvQuestion.setText(Html.fromHtml(quiz.question));
         tvOptionA.setText(quiz.option1);
         tvOptionB.setText(quiz.option2);

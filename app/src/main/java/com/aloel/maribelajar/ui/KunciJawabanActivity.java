@@ -1,13 +1,10 @@
 package com.aloel.maribelajar.ui;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,18 +15,14 @@ import android.widget.TextView;
 
 import com.aloel.maribelajar.R;
 import com.aloel.maribelajar.model.Answer;
-import com.aloel.maribelajar.model.Quiz;
 import com.aloel.maribelajar.ui.adapter.CustomPagerAdapter;
 
-import java.net.URL;
-import java.util.ArrayList;
-
-public class QuizActivity extends BaseActivity {
+public class KunciJawabanActivity extends BaseActivity {
 
     private ImageView mLeftIv;
     private ImageView mRight;
-    private Button mKumpulkanBtn;
-    private Button mDaftarSoalBtn;
+    private Button mPenjelasanBtn;
+    private Button mBackBtn;
 
     private ViewPager mViewPager;
 
@@ -47,8 +40,8 @@ public class QuizActivity extends BaseActivity {
 
         mLeftIv             = (ImageView) findViewById(R.id.iv_left);
         mRight              = (ImageView) findViewById(R.id.iv_right);
-        mKumpulkanBtn       = (Button) findViewById(R.id.btn_kumpulkan);
-        mDaftarSoalBtn      = (Button) findViewById(R.id.btn_daftar_soal);
+        mPenjelasanBtn      = (Button) findViewById(R.id.btn_penjelasan);
+        mBackBtn            = (Button) findViewById(R.id.btn_back);
         mViewPager          = (ViewPager) findViewById(R.id.viewpager);
 
         String mSubject = getIntent().getExtras().getString("subject");
@@ -72,23 +65,19 @@ public class QuizActivity extends BaseActivity {
             }
         });
 
-        mKumpulkanBtn.setOnClickListener(new View.OnClickListener() {
+        mPenjelasanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogKumpulkan();
+
             }
         });
 
-        mDaftarSoalBtn.setOnClickListener(new View.OnClickListener() {
+        mBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogSoal();
+                onBackPressed();
             }
         });
-    }
-
-    public void setCurrentPage(int page) {
-        mViewPager.setCurrentItem(0);
     }
 
     public void next() {
@@ -129,19 +118,7 @@ public class QuizActivity extends BaseActivity {
         clearAnswer();
     }
 
-    public void showDialogKumpulkan () {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.dialog_kumpulkan, null);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(view);
-
-        final AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
-
-    public void showDialogSoal() {
+    public void showDialogSoal(ViewPager viewPager) {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_daftar_soal, null);
 
