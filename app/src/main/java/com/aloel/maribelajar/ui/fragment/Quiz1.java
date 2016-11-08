@@ -3,6 +3,7 @@ package com.aloel.maribelajar.ui.fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -82,58 +83,60 @@ public class Quiz1 extends BaseFragment {
         rlOptionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rlOptionA.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-                rlOptionB.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionC.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionD.setBackgroundColor(getResources().getColor(R.color.transparent));
 
                 saveAnswer(String.valueOf(quizNumber), tvOptionA.getText().toString());
                 next();
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                saveAnswer("number"+quizNumber, tvOptionA.getText().toString());
             }
         });
 
         rlOptionB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rlOptionA.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionB.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-                rlOptionC.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionD.setBackgroundColor(getResources().getColor(R.color.transparent));
 
                 saveAnswer(String.valueOf(quizNumber), tvOptionB.getText().toString());
                 next();
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                saveAnswer("number"+quizNumber, tvOptionB.getText().toString());
             }
         });
 
         rlOptionC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rlOptionA.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionB.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionC.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-                rlOptionD.setBackgroundColor(getResources().getColor(R.color.transparent));
-
                 saveAnswer(String.valueOf(quizNumber), tvOptionC.getText().toString());
                 next();
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                saveAnswer("number"+quizNumber, tvOptionC.getText().toString());
             }
         });
 
         rlOptionD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rlOptionA.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionB.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionC.setBackgroundColor(getResources().getColor(R.color.transparent));
-                rlOptionD.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-
                 saveAnswer(String.valueOf(quizNumber), tvOptionD.getText().toString());
                 next();
+                rlOptionA.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionB.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionC.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.transparent));
+                rlOptionD.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorOrange));
             }
         });
     }
 
     public void next() {
         ((QuizActivity) getActivity()).next();
+                saveAnswer("number"+quizNumber, tvOptionD.getText().toString());
     }
 
     public void updateView(Quiz quiz) {

@@ -19,15 +19,15 @@ public class Answer implements Parcelable {
     public Answer() {}
 
     public Answer(Parcel in) {
-        number1        = in.readString();
-        number2        = in.readString();
-        number3        = in.readString();
-        number4        = in.readString();
-        number5        = in.readString();
-        number6        = in.readString();
-        number7       = in.readString();
-        number8        = in.readString();
-        number9        = in.readString();
+        number1         = in.readString();
+        number2         = in.readString();
+        number3         = in.readString();
+        number4         = in.readString();
+        number5         = in.readString();
+        number6         = in.readString();
+        number7         = in.readString();
+        number8         = in.readString();
+        number9         = in.readString();
         number10        = in.readString();
     }
 
@@ -66,5 +66,18 @@ public class Answer implements Parcelable {
         out.writeString(number8);
         out.writeString(number9);
         out.writeString(number10);
+    }
+
+    public boolean checkAnswer() {
+        boolean answer = false;
+
+        if (number1.contains("") || number2.contains("") || number3.contains("") ||
+                number4.contains("") || number5.contains("") || number6.contains("") ||
+                number7.contains("") || number8.contains("") || number9.contains("") ||
+                number10.contains("")) {
+            answer = false;
+        }
+
+        return answer;
     }
 }
