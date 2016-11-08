@@ -31,19 +31,18 @@
             android:maxLines="10"
             android:text="Berapakan harga minyak saat ini ?"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RelativeLayout
             android:id="@+id/rl_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:padding="5dp">
 
             <RelativeLayout
                 android:id="@+id/rl_option_a"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/circle">
 
                 <TextView
@@ -52,7 +51,7 @@
                     android:layout_centerInParent="true"
                     android:text="A"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -66,7 +65,7 @@
                 android:gravity="center_vertical"
                 android:text="Jawaban A"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -77,8 +76,8 @@
 
             <RelativeLayout
                 android:id="@+id/rl_option_b"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/circle">
 
                 <TextView
@@ -87,7 +86,7 @@
                     android:layout_centerInParent="true"
                     android:text="B"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -101,7 +100,7 @@
                 android:gravity="center_vertical"
                 android:text="Jawaban B"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -112,8 +111,8 @@
 
             <RelativeLayout
                 android:id="@+id/rl_option_c"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/circle">
 
                 <TextView
@@ -122,7 +121,7 @@
                     android:layout_centerInParent="true"
                     android:text="C"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -136,7 +135,7 @@
                 android:gravity="center_vertical"
                 android:text="Jawaban C"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -147,8 +146,8 @@
 
             <RelativeLayout
                 android:id="@+id/rl_option_d"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@drawable/circle">
 
                 <TextView
@@ -157,7 +156,7 @@
                     android:layout_centerInParent="true"
                     android:text="D"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -171,7 +170,7 @@
                 android:gravity="center_vertical"
                 android:text="Jawaban D"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 

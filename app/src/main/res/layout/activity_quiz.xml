@@ -31,26 +31,27 @@
         <Button
             android:id="@+id/btn_daftar_soal"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:background="@drawable/rounded_bottom"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Daftar Soal"
             android:textColor="#25b6f6"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_left"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@+id/btn_daftar_soal"
             android:src="@drawable/prev" />
 
         <ImageView
             android:id="@+id/iv_right"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@+id/iv_left"
             android:src="@drawable/next" />
@@ -58,7 +59,7 @@
         <Button
             android:id="@+id/btn_kumpulkan"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@+id/iv_right"
             android:background="@drawable/rounded_bottom"
@@ -66,6 +67,7 @@
             android:paddingRight="10dp"
             android:text="Kumpulkan"
             android:textColor="#25b6f6"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>
