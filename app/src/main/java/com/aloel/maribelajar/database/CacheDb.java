@@ -46,6 +46,8 @@ public class CacheDb extends Database {
 			values.put("option3",	quiz.option3);
 			values.put("option4",	quiz.option4);
 			values.put("answer",	quiz.answer);
+			values.put("penjelasan",	quiz.penjelasan);
+			values.put("penjelasan_image",	quiz.penjelasan_image);
 
 			mSqLite.insert("cache", null, values);
 		}
@@ -83,6 +85,8 @@ public class CacheDb extends Database {
 				quiz.option3 		= c.getString(c.getColumnIndex("option3"));
 				quiz.option4 		= c.getString(c.getColumnIndex("option4"));
 				quiz.answer 		= c.getString(c.getColumnIndex("answer"));
+				quiz.penjelasan 		= c.getString(c.getColumnIndex("penjelasan"));
+				quiz.penjelasan_image 		= c.getString(c.getColumnIndex("penjelasan_image"));
 
 			}
 			c.close();
@@ -125,6 +129,8 @@ public class CacheDb extends Database {
 					quiz.option3 		= c.getString(c.getColumnIndex("option3"));
 					quiz.option4 		= c.getString(c.getColumnIndex("option4"));
 					quiz.answer 		= c.getString(c.getColumnIndex("answer"));
+					quiz.penjelasan 		= c.getString(c.getColumnIndex("penjelasan"));
+					quiz.penjelasan_image 		= c.getString(c.getColumnIndex("penjelasan_image"));
 
 					mQuiz.add(quiz);
 

@@ -218,6 +218,8 @@ public class SplashScreen extends BaseActivity {
                 quiz.option3        = jsonObject.getString("option3");
                 quiz.option4        = jsonObject.getString("option4");
                 quiz.answer         = jsonObject.getString("answer");
+                quiz.penjelasan     = jsonObject.getString("penjelasan");
+                quiz.penjelasan_image = jsonObject.getString("penjelasan_image");
 
                 mQuiz.add(quiz);
             }

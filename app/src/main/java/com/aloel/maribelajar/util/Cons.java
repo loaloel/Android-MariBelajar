@@ -14,7 +14,7 @@ public class Cons {
 
 	public static final String PACKAGE_PREFIX = "com.aloel.maribelajar";
 
-	public static final int DB_VERSION = 2;
+	public static final int DB_VERSION = 3;
 
 	// private preferences key name
 	public static final String PRIVATE_PREF = "lisa_pref";
