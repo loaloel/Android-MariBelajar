@@ -26,6 +26,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:visibility="gone"
                     android:id="@+id/btn_about"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
@@ -51,6 +52,7 @@
                     android:textStyle="bold" />
 
                 <Button
+                    android:visibility="gone"
                     android:id="@+id/btn_petunjuk"
                     android:layout_width="80dp"
                     android:layout_height="30dp"

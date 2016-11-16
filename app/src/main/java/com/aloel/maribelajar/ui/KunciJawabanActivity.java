@@ -20,6 +20,7 @@ import com.aloel.maribelajar.database.CacheDb;
 import com.aloel.maribelajar.model.Answer;
 import com.aloel.maribelajar.model.Quiz;
 import com.aloel.maribelajar.ui.adapter.CustomPagerAdapter;
+import com.aloel.maribelajar.ui.adapter.KunciJawabanAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.net.URL;
@@ -34,7 +35,7 @@ public class KunciJawabanActivity extends BaseActivity {
 
     private ViewPager mViewPager;
 
-    private CustomPagerAdapter mAdapter;
+    private KunciJawabanAdapter mAdapter;
 
     private ArrayList<Quiz> quizArrayList = new ArrayList<Quiz>();
     private CacheDb mCacheDb;
@@ -63,7 +64,7 @@ public class KunciJawabanActivity extends BaseActivity {
         String mSubject = getIntent().getExtras().getString("subject");
         String mClass = getIntent().getExtras().getString("class");
 
-        mAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this, mSubject, mClass);
+        mAdapter = new KunciJawabanAdapter(getSupportFragmentManager(), this, mSubject, mClass);
         mViewPager.setOffscreenPageLimit(10);
         mViewPager.setAdapter(mAdapter);
 
@@ -154,7 +155,7 @@ public class KunciJawabanActivity extends BaseActivity {
 
         TextView mPenjelasanTv = (TextView) view.findViewById(R.id.tv_penjelasan);
         ImageView mPenjelasanIv = (ImageView) view.findViewById(R.id.iv_penjelasan);
-        Button mMengertiBtn = (Button) view.findViewById(R.id.btn_ulangi);
+        Button mMengertiBtn = (Button) view.findViewById(R.id.btn_mengerti);
 
         Quiz quiz = quizArrayList.get(mViewPager.getCurrentItem());
 
