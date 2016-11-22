@@ -41,6 +41,8 @@ public class KunciJawabanActivity extends BaseActivity {
     private CacheDb mCacheDb;
 
     private LoadCacheTask mLoadCacheTask;
+    private String mSubject;
+    private String mClass;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +63,8 @@ public class KunciJawabanActivity extends BaseActivity {
         mBackBtn            = (Button) findViewById(R.id.btn_back);
         mViewPager          = (ViewPager) findViewById(R.id.viewpager);
 
-        String mSubject = getIntent().getExtras().getString("subject");
-        String mClass = getIntent().getExtras().getString("class");
+        mSubject = getIntent().getExtras().getString("subject");
+        mClass = getIntent().getExtras().getString("class");
 
         mAdapter = new KunciJawabanAdapter(getSupportFragmentManager(), this, mSubject, mClass);
         mViewPager.setOffscreenPageLimit(10);
@@ -185,7 +187,7 @@ public class KunciJawabanActivity extends BaseActivity {
 
             try {
                 Log.e("GGG", "DISINI");
-                quizArrayList = mCacheDb.getQuizAll();
+                quizArrayList = mCacheDb.getQuizAll(mSubject, mClass);
                 result = 1;
             } catch (Exception e) {
                 e.printStackTrace();

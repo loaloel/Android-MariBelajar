@@ -26,7 +26,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:visibility="gone"
                     android:id="@+id/btn_about"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
@@ -52,14 +51,13 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:visibility="gone"
-                    android:id="@+id/btn_petunjuk"
+                    android:id="@+id/btn_panduan"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:background="@drawable/rounded_bottom"
-                    android:text="Petunjuk"
+                    android:text="Panduan"
                     android:textColor="#25b6f6"
                     android:textSize="12sp"
                     android:textStyle="bold" />

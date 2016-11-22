@@ -23,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -276,11 +277,13 @@ public class BaseActivity extends AppCompatActivity {
 	public void saveAnswer(String number, String value) {
 		Editor editor = mSharedPref.edit();
 
-		editor.putString("number" + number, value);
+		editor.putString(number, value);
 		editor.commit();
 	}
 
 	public Answer getAnswer() {
+		mSharedPref = getSharedPreferences(Cons.PRIVATE_PREF,
+				Context.MODE_PRIVATE);
 		Answer answer = new Answer();
 
 		answer.number1	= mSharedPref.getString("number1", "");
@@ -293,6 +296,17 @@ public class BaseActivity extends AppCompatActivity {
 		answer.number8	= mSharedPref.getString("number8", "");
 		answer.number9	= mSharedPref.getString("number9", "");
 		answer.number10	= mSharedPref.getString("number10", "");
+
+		Log.e("Answer", answer.number1 + "1");
+		Log.e("Answer", answer.number2 + "2");
+		Log.e("Answer", answer.number3 + "3");
+		Log.e("Answer", answer.number4 + "4");
+		Log.e("Answer", answer.number5 + "5");
+		Log.e("Answer", answer.number6 + "6");
+		Log.e("Answer", answer.number7 + "7");
+		Log.e("Answer", answer.number8 + "8");
+		Log.e("Answer", answer.number9 + "9");
+		Log.e("Answer", answer.number10 + "10");
 
 		return answer;
 	}

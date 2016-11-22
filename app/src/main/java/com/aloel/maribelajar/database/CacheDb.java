@@ -143,4 +143,53 @@ public class CacheDb extends Database {
 
 		return mQuiz;
 	}
+
+	public ArrayList<Quiz> getQuizAll(String subject, String classStudent) {
+		ArrayList<Quiz> mQuiz = null;
+
+		Log.e("TTT", mSqLite + "");
+
+		if (mSqLite == null || !mSqLite.isOpen()) {
+			return mQuiz;
+		}
+
+		String sql	= "SELECT * FROM cache WHERE subject = '" + subject + "' AND class = '"  + classStudent + "'";
+
+		Cursor c 	= mSqLite.rawQuery(sql, null);
+
+		Debug.i(sql);
+
+		if (c != null) {
+
+			if (c.moveToFirst()) {
+				mQuiz = new ArrayList<Quiz>();
+
+				while (c.isAfterLast()  == false) {
+					Quiz quiz = new Quiz();
+
+					quiz.id 			= c.getString(c.getColumnIndex("id"));
+					quiz.subject 		= c.getString(c.getColumnIndex("subject"));
+					quiz.classStudent 	= c.getString(c.getColumnIndex("class"));
+					quiz.type 			= c.getString(c.getColumnIndex("type"));
+					quiz.question 		= c.getString(c.getColumnIndex("question"));
+					quiz.image 			= c.getString(c.getColumnIndex("image"));
+					quiz.option1 		= c.getString(c.getColumnIndex("option1"));
+					quiz.option2 		= c.getString(c.getColumnIndex("option2"));
+					quiz.option3 		= c.getString(c.getColumnIndex("option3"));
+					quiz.option4 		= c.getString(c.getColumnIndex("option4"));
+					quiz.answer 		= c.getString(c.getColumnIndex("answer"));
+					quiz.penjelasan 		= c.getString(c.getColumnIndex("penjelasan"));
+					quiz.penjelasan_image 		= c.getString(c.getColumnIndex("penjelasan_image"));
+
+					mQuiz.add(quiz);
+
+					c.moveToNext();
+				}
+
+			}
+			c.close();
+		}
+
+		return mQuiz;
+	}
 }

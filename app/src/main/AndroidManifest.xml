@@ -44,6 +44,14 @@
             android:name=".ui.KunciJawabanActivity"
             android:configChanges="orientation"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.AboutActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.PanduanActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
 
         <service
             android:name="com.aloel.maribelajar.service.ServiceBGM"

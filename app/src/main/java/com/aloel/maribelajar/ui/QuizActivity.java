@@ -1,5 +1,6 @@
 package com.aloel.maribelajar.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -155,6 +156,13 @@ public class QuizActivity extends BaseActivity {
 
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                clearAnswer();
+                finish();
+            }
+        });
         dialog.show();
 
         TextView mNilaiTv = (TextView) view.findViewById(R.id.tv_nilai);
@@ -162,6 +170,18 @@ public class QuizActivity extends BaseActivity {
         Button mKunciJawaban = (Button) view.findViewById(R.id.btn_kunci_jawaan);
 
         Answer answer = getAnswer();
+
+        Log.e("RightAnswer", quizArrayList.get(0).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(1).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(2).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(3).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(4).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(5).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(6).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(7).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(8).answer + "");
+        Log.e("RightAnswer", quizArrayList.get(9).answer + "");
+
         if (answer.number1.equals(quizArrayList.get(0).answer)) {
             nilai++;
         }
@@ -226,6 +246,8 @@ public class QuizActivity extends BaseActivity {
                 mIntent.putExtra("subject", mSubject);
                 mIntent.putExtra("class", mClass);
                 startActivity(mIntent);
+                clearAnswer();
+                finish();
 
                 dialog.dismiss();
             }
@@ -397,7 +419,7 @@ public class QuizActivity extends BaseActivity {
 
             try {
                 Log.e("GGG", "DISINI");
-                quizArrayList = mCacheDb.getQuizAll();
+                quizArrayList = mCacheDb.getQuizAll(mSubject, mClass);
                 result = 1;
             } catch (Exception e) {
                 e.printStackTrace();
