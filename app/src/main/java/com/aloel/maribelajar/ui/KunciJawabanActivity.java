@@ -47,6 +47,7 @@ public class KunciJawabanActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doBindService();
         setContentView(R.layout.activity_kunci_jawaban);
         enableDatabase();
         mCacheDb = new CacheDb(getDatabase());
@@ -103,11 +104,21 @@ public class KunciJawabanActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mCacheDb.reload(getDatabase());
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mServ.pauseMusic();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        mServ.pauseMusic();
 
         clearAnswer();
     }
@@ -115,6 +126,8 @@ public class KunciJawabanActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("DDD", "HERE");
+        doUnbindService();
 
         clearAnswer();
     }

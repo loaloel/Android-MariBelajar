@@ -2,6 +2,7 @@ package com.aloel.maribelajar.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,7 +20,9 @@ public class MenuActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doBindService();
         setContentView(R.layout.activity_menu);
+        doBindService();
 
         mMulaiBtn = (Button) findViewById(R.id.btn_mulai);
         mAboutBtn = (Button) findViewById(R.id.btn_about);
@@ -48,5 +51,32 @@ public class MenuActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mServ.pauseMusic();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mServ.pauseMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("DDD", "HERE");
+        doUnbindService();
     }
 }

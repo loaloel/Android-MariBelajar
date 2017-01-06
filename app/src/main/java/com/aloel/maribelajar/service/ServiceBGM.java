@@ -56,12 +56,13 @@ public class ServiceBGM extends Service implements MediaPlayer.OnErrorListener {
         });
     }
 
-    @Override
-    public int onStartCommand (Intent intent, int flags, int startId)
-    {
-        mPlayer.start();
-        return START_STICKY;
-    }
+//    @Override
+//    public int onStartCommand (Intent intent, int flags, int startId)
+//    {
+//        Log.e("TTT", "TOT");
+//        mPlayer.start();
+//        return START_STICKY;
+//    }
 
     public void pauseMusic()
     {

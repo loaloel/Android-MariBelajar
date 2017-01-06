@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,40 @@ public class PanduanActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doBindService();
         setContentView(R.layout.activity_panduan);
 
         mIndicator = (PageIndicator) findViewById(R.id.indicatorHome);
         mViewPager = (ViewPager) findViewById(R.id.pagerBrowseSlider);
 
         setupSliderHome();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mServ.pauseMusic();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mServ.pauseMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("DDD", "HERE");
+        doUnbindService();
     }
 
     private void setupSliderHome() {

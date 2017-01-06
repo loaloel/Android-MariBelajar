@@ -36,9 +36,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doBindService();
         setContentView(R.layout.activity_main);
         enableDatabase();
-        doBindService();
         initialize();
     }
 

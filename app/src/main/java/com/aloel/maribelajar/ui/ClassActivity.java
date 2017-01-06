@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -29,6 +30,7 @@ public class ClassActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
         enableDatabase();
+        doBindService();
 
         mSubject = getIntent().getStringExtra("subject");
 
@@ -50,6 +52,33 @@ public class ClassActivity extends BaseActivity {
 
         setupRecyclerView();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mServ.pauseMusic();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mServ.pauseMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("DDD", "HERE");
+        doUnbindService();
     }
 
     private void setupRecyclerView() {

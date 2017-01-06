@@ -50,8 +50,10 @@ public class QuizActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        doBindService();
         setContentView(R.layout.activity_quiz);
         enableDatabase();
+
         mCacheDb = new CacheDb(getDatabase());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,11 +108,21 @@ public class QuizActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mCacheDb.reload(getDatabase());
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mServ.pauseMusic();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        mServ.pauseMusic();
 
         clearAnswer();
     }
@@ -118,6 +130,8 @@ public class QuizActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("DDD", "HERE");
+        doUnbindService();
 
         clearAnswer();
     }
